@@ -40,17 +40,17 @@ ENV MODEL_NAME=$MODEL_NAME \
 ENV PYTHONPATH="/:/vllm"
 
 COPY src /src
-RUN chmod +x /src/handler.py
+# RUN chmod +x /src/handler.py
 
-CMD ["python3", "-u", "/src/handler.py"]
+# CMD ["python3", "-u", "/src/handler.py"]
 
 
-# RUN --mount=type=secret,id=HF_TOKEN,required=false \
-#     if [ -f /run/secrets/HF_TOKEN ]; then \
-#     export HF_TOKEN=$(cat /run/secrets/HF_TOKEN); \
-#     fi && \
-#     if [ -n "$MODEL_NAME" ]; then \
-#     python3 /src/download_model.py; \
-#     fi
+RUN --mount=type=secret,id=HF_TOKEN,required=false \
+    if [ -f /run/secrets/HF_TOKEN ]; then \
+    export HF_TOKEN=$(cat /run/secrets/HF_TOKEN); \
+    fi && \
+    if [ -n "$MODEL_NAME" ]; then \
+    python3 /src/download_model.py; \
+    fi
 
-# CMD ["python3", "/src/handler.py"]
+CMD ["python3", "/src/handler.py"]
