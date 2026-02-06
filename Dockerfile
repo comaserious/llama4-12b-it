@@ -34,23 +34,22 @@ ENV MODEL_NAME=$MODEL_NAME \
     HF_DATASETS_CACHE="${BASE_PATH}/huggingface-cache/datasets" \
     HUGGINGFACE_HUB_CACHE="${BASE_PATH}/huggingface-cache/hub" \
     HF_HOME="${BASE_PATH}/huggingface-cache/hub" \
-    HF_HUB_ENABLE_HF_TRANSFER=1 \
-    VLLM_USE_V1=0 
+    HF_HUB_ENABLE_HF_TRANSFER=0 
 
 ENV PYTHONPATH="/:/vllm"
 
 COPY src /src
-RUN chmod +x /src/handler.py
+# RUN chmod +x /src/handler.py
 
-CMD ["python3", "-u", "/src/handler.py"]
+# CMD ["python3", "-u", "/src/handler.py"]
 
 
-# RUN --mount=type=secret,id=HF_TOKEN,required=false \
-#     if [ -f /run/secrets/HF_TOKEN ]; then \
-#     export HF_TOKEN=$(cat /run/secrets/HF_TOKEN); \
-#     fi && \
-#     if [ -n "$MODEL_NAME" ]; then \
-#     python3 /src/download_model.py; \
-#     fi
+RUN --mount=type=secret,id=HF_TOKEN,required=false \
+    if [ -f /run/secrets/HF_TOKEN ]; then \
+    export HF_TOKEN=$(cat /run/secrets/HF_TOKEN); \
+    fi && \
+    if [ -n "$MODEL_NAME" ]; then \
+    python3 /src/download_model.py; \
+    fi
 
-# CMD ["python3", "/src/handler.py"]
+CMD ["python3", "/src/handler.py"]
