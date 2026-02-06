@@ -15,7 +15,8 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 # 3. FlashInfer 설치 (Llama-4 MoE 가속 필수)
 # vLLM 0.7.0+ 및 CUDA 12.4, Torch 2.4/2.5 환경에 맞춤
-RUN python3 -m pip install flashinfer -i https://flashinfer.ai/whl/cu124/torch2.4
+RUN python3 -m pip install vllm==0.7.0 && \
+    python3 -m pip install flashinfer -i https://flashinfer.ai/whl/cu124/torch2.4
 
 # 나머지 설정 유지
 ARG MODEL_NAME=""
