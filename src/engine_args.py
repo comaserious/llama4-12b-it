@@ -2,6 +2,11 @@ import os
 import json
 import logging
 from torch.cuda import device_count
+# vllm 최전 버전 모듈
+# from vllm import AsyncEngineArgs
+# from vllm.model_executor.model_loader.tensorizer import TensorizerConfig
+# from src.utils import convert_limit_mm_per_prompt
+
 from vllm import AsyncEngineArgs
 from vllm.model_executor.model_loader.tensorizer import TensorizerConfig
 from src.utils import convert_limit_mm_per_prompt

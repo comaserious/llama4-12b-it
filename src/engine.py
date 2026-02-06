@@ -7,16 +7,23 @@ from dotenv import load_dotenv
 from typing import AsyncGenerator, Optional
 import time
 
+# vllm 최전 버전 모듈
+# from vllm import AsyncLLMEngine
+# from vllm.entrypoints.logger import RequestLogger
+# from vllm.entrypoints.openai.chat_completion.serving import OpenAIServingChat
+# from vllm.entrypoints.openai.completion.serving import OpenAIServingCompletion
+# from vllm.entrypoints.openai.chat_completion.protocol import ChatCompletionRequest
+# from vllm.entrypoints.openai.completion.protocol import CompletionRequest
+# from vllm.entrypoints.openai.engine.protocol import ErrorResponse
+# from vllm.entrypoints.openai.models.protocol import BaseModelPath, LoRAModulePath
+# from vllm.entrypoints.openai.models.serving import OpenAIServingModels
+
 from vllm import AsyncLLMEngine
 from vllm.entrypoints.logger import RequestLogger
-from vllm.entrypoints.openai.chat_completion.serving import OpenAIServingChat
-from vllm.entrypoints.openai.completion.serving import OpenAIServingCompletion
-from vllm.entrypoints.openai.chat_completion.protocol import ChatCompletionRequest
-from vllm.entrypoints.openai.completion.protocol import CompletionRequest
-from vllm.entrypoints.openai.engine.protocol import ErrorResponse
-from vllm.entrypoints.openai.models.protocol import BaseModelPath, LoRAModulePath
-from vllm.entrypoints.openai.models.serving import OpenAIServingModels
-
+from vllm.entrypoints.openai.serving_chat import OpenAIServingChat
+from vllm.entrypoints.openai.serving_completion import OpenAIServingCompletion
+from vllm.entrypoints.openai.protocol import ChatCompletionRequest, CompletionRequest, ErrorResponse
+from vllm.entrypoints.openai.serving_models import BaseModelPath, LoRAModulePath, OpenAIServingModels
 
 from utils import DummyRequest, JobInput, BatchSize, create_error_response
 from constants import DEFAULT_MAX_CONCURRENCY, DEFAULT_BATCH_SIZE, DEFAULT_BATCH_SIZE_GROWTH_FACTOR, DEFAULT_MIN_BATCH_SIZE
